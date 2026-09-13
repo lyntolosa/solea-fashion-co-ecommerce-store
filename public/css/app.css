@@ -1,0 +1,244 @@
+body {
+    text-rendering: optimizeLegibility;
+}
+
+/* Shared Soléa Fashion Co. palette: warm ivory, cocoa, terracotta, and muted mauve. */
+:root {
+    --brand-ivory: #f3ede6;
+    --brand-paper: #fffdfa;
+    --brand-sand: #e4d8cd;
+    --brand-clay: #9f4f3d;
+    --brand-clay-dark: #74372d;
+    --brand-cocoa: #241c18;
+    --brand-mauve: #6c5459;
+    --brand-line: #b9a99c;
+}
+
+body,
+body[class*="bg-background"],
+body[class*="bg-surface"] {
+    background-color: var(--brand-ivory) !important;
+    color: var(--brand-cocoa) !important;
+}
+
+[class~="bg-black"],
+[class*="bg-black/"],
+[class~="bg-background"],
+[class*="bg-background/"],
+[class~="bg-surface"],
+[class*="bg-surface-container"] {
+    background-color: var(--brand-paper) !important;
+}
+
+[class~="bg-surface-container-low"],
+[class~="bg-surface-container-high"],
+[class~="bg-surface-container-highest"] {
+    background-color: var(--brand-sand) !important;
+}
+
+[class*="bg-neutral-"],
+[class*="bg-[#"] {
+    background-color: var(--brand-paper) !important;
+}
+
+[class*="text-neutral-"] {
+    color: #6f5e50 !important;
+}
+
+[class~="text-white"],
+[class~="text-on-surface"],
+[class~="text-on-surface-variant"] {
+    color: var(--brand-cocoa) !important;
+}
+
+[class~="text-primary"],
+[class~="text-primary-container"],
+[class*="text-primary-container/"] {
+    color: var(--brand-clay) !important;
+}
+
+[class~="text-secondary"],
+[class*="text-secondary/"] {
+    color: var(--brand-mauve) !important;
+}
+
+[class~="bg-primary"],
+[class~="bg-primary-container"],
+[class*="bg-primary-container/"] {
+    background-color: var(--brand-clay) !important;
+}
+
+[class~="text-black"],
+[class~="text-on-primary-container"] {
+    color: var(--brand-paper) !important;
+}
+
+[class*="border-white/"],
+[class~="border-outline-variant"],
+[class*="border-outline-variant/"] {
+    border-color: var(--brand-line) !important;
+}
+
+[class~="border-primary"],
+[class~="border-primary-container"],
+[class*="border-primary-container/"] {
+    border-color: var(--brand-clay) !important;
+}
+
+[class~="bg-error"],
+[class*="bg-error/"] {
+    background-color: #a85243 !important;
+}
+
+.kinetic-gradient,
+.btn-volt-gradient {
+    background: var(--brand-clay) !important;
+    color: #fffdf9 !important;
+}
+
+[class~="bg-gradient-to-r"] {
+    background-image: linear-gradient(90deg, var(--brand-clay), var(--brand-clay-dark)) !important;
+}
+
+input,
+textarea,
+select {
+    background-color: var(--brand-paper) !important;
+    border-color: var(--brand-line) !important;
+    color: var(--brand-cocoa) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #76665d !important;
+}
+
+.bento-card {
+    background: var(--brand-paper) !important;
+}
+
+.bento-card:hover {
+    background: var(--brand-sand) !important;
+}
+
+.shop-stock-badge {
+    background: rgba(36, 28, 24, 0.9) !important;
+    color: var(--brand-paper) !important;
+}
+
+.shop-card-overlay {
+    background: linear-gradient(180deg, rgba(36, 28, 24, 0) 0%, rgba(36, 28, 24, 0.86) 100%) !important;
+}
+
+.shop-card-copy .text-secondary,
+.shop-card-copy h3,
+.shop-card-copy div {
+    color: var(--brand-paper) !important;
+    text-shadow: 0 1px 3px rgba(36, 28, 24, 0.75);
+}
+
+.shop-card-copy {
+    z-index: 2 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-left: 0 !important;
+}
+
+.shop-card-copy h3 {
+    font-weight: 800 !important;
+    color: #ffffff !important;
+}
+
+.shop-card-copy > div {
+    color: #f4c7b8 !important;
+}
+
+.shop-controls {
+    background-color: var(--brand-sand) !important;
+    border-color: var(--brand-line) !important;
+}
+
+.home-hero-title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 12px rgba(36, 28, 24, 0.72);
+}
+
+.home-hero-title span {
+    color: #f4a08a !important;
+}
+
+/* Replace legacy neon accents that remain in older utility classes. */
+[class*="d5fb00"],
+[class*="D9FF00"],
+[class*="f5ffc4"],
+[style*="#d5fb00"],
+[style*="#D9FF00"],
+[style*="#f5ffc4"] {
+    color: var(--brand-clay) !important;
+    background-color: transparent !important;
+    border-color: var(--brand-clay) !important;
+}
+
+[class*="bg-[#d5fb00"],
+[class*="bg-[#D9FF00"],
+[style*="background: linear-gradient"] {
+    background: var(--brand-clay) !important;
+    color: var(--brand-paper) !important;
+}
+
+[class*="hover:bg-lime"],
+[class*="hover:text-primary"]:hover,
+[class*="hover:text-primary-container"]:hover,
+[class*="hover:text-[#d5fb00"]:hover,
+[class*="hover:text-[#D9FF00"]:hover {
+    background-color: var(--brand-clay-dark) !important;
+    color: var(--brand-paper) !important;
+}
+
+button,
+[role="button"],
+a[class*="bg-primary"],
+a[class*="bg-primary-container"] {
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, opacity 160ms ease;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--brand-clay);
+    outline-offset: 3px;
+}
+
+button[class*="bg-primary"],
+button[class*="bg-primary-container"],
+a[class*="bg-primary"],
+a[class*="bg-primary-container"],
+button.kinetic-gradient,
+a.kinetic-gradient {
+    background-color: var(--brand-clay) !important;
+    color: var(--brand-paper) !important;
+}
+
+button[class*="bg-primary"]:hover,
+button[class*="bg-primary-container"]:hover,
+a[class*="bg-primary"]:hover,
+a[class*="bg-primary-container"]:hover,
+button.kinetic-gradient:hover,
+a.kinetic-gradient:hover {
+    background-color: var(--brand-clay-dark) !important;
+    color: var(--brand-paper) !important;
+}
+
+select,
+input,
+textarea {
+    box-shadow: inset 0 0 0 1px rgba(36, 28, 24, 0.08);
+}
+
+select option {
+    background-color: var(--brand-paper);
+    color: var(--brand-cocoa);
+}
