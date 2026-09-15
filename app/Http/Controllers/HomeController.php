@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -948,6 +949,7 @@ class HomeController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:Active,Draft,Scheduled,Archived'],
+            'scheduled_at' => ['nullable', 'date'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
         $store = $this->storeData();
@@ -987,6 +989,7 @@ class HomeController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:Active,Draft,Scheduled,Archived'],
+            'scheduled_at' => ['nullable', 'date'],
             'description' => ['nullable', 'string', 'max:3000'],
             'details' => ['nullable', 'string', 'max:5000'],
             'materials' => ['nullable', 'string', 'max:3000'],
@@ -1269,7 +1272,18 @@ class HomeController extends Controller
     {
         $base = collect($this->products())->keyBy('slug');
         return collect($this->inventoryCatalog())
-            ->filter(fn (array $product) => ($product['status'] ?? 'Active') !== 'Archived' && (int) ($product['stock'] ?? 0) > 0)
+            ->filter(function (array $product): bool {
+                $status = $product['status'] ?? 'Active';
+
+                if ($status === 'Active') return true;
+                if ($status !== 'Scheduled' || empty($product['scheduled_at'])) return false;
+
+                try {
+                    return Carbon::parse($product['scheduled_at'])->isPast();
+                } catch (\Throwable) {
+                    return false;
+                }
+            })
             ->map(function (array $item) use ($base) {
                 $product = $base->has($item['slug']) ? array_merge($base->get($item['slug']), $item) : $item;
                 $product['category'] = match ($product['slug']) {
