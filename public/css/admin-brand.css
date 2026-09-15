@@ -124,6 +124,18 @@
     color: #fff !important;
 }
 
+.admin-brand a[href*="/admin/products/"][class*="py-2"] {
+    background-color: #a6533e !important;
+    border-color: #a6533e !important;
+    color: #fff !important;
+}
+
+.admin-brand a[href*="/admin/products/"][class*="py-2"]:hover {
+    background-color: #8e4433 !important;
+    border-color: #8e4433 !important;
+    color: #fff !important;
+}
+
 .admin-brand [class*="bg-[#d9ff00]"],
 .admin-brand [class*="bg-[#D9FF00]"] {
     background-color: #a6533e !important;
