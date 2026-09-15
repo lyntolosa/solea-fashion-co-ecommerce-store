@@ -61,7 +61,7 @@
 @if($section === 'products')
 <script>
     document.querySelectorAll('a').forEach((link) => {
-        if (link.textContent.trim() !== 'Quick edit') return;
+        if (!link.textContent.toLowerCase().includes('quick edit')) return;
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const row = link.closest('tr');
