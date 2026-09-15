@@ -635,6 +635,7 @@ class HomeController extends Controller
                 'detail' => $product['stock'] . ' in stock',
                 'value' => '&#8369;' . number_format($product['price'], 2),
                 'status' => $product['status'],
+                'stock_by_size' => $product['stock_by_size'] ?? [],
                 'image' => str_starts_with((string) ($product['image'] ?? ''), 'inventory/') ? asset('storage/' . $product['image']) : ($product['image'] ?? ''),
             ])->values()->all(),
             default => [],

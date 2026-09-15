@@ -60,6 +60,7 @@
 </main>
 @if($section === 'products')
 <script>
+    const productSizeStocks = @json(collect($rows)->mapWithKeys(fn (array $item) => [$item['slug'] => $item['stock_by_size'] ?? []]));
     document.querySelectorAll('a').forEach((link) => {
         if (!link.textContent.toLowerCase().includes('quick edit')) return;
         link.addEventListener('click', (event) => {
@@ -77,7 +78,10 @@
             const secondary = row.querySelector('td p.text-muted')?.textContent.trim().split(' · ') || ['', ''];
             const stock = row.querySelector('td:nth-child(2)')?.textContent.match(/\d+/)?.[0] || '0';
             const price = row.querySelector('td:nth-child(4)')?.textContent.replace(/[^\d.]/g, '') || '0';
+            const slug = link.href.split('/').slice(-2, -1)[0];
             const action = link.href.replace('/admin/products/', '/admin/inventory/products/').replace(/\/edit$/, '');
+            const sizeStock = productSizeStocks[slug] || {};
+            const sizes = ['S', 'M', 'L', 'XL'];
             const quickRow = document.createElement('tr');
             quickRow.className = 'quick-edit-row';
             quickRow.innerHTML = `<td colspan="5" class="border-t border-outline-variant/20 bg-surface-container-high px-6 py-5">
@@ -88,7 +92,7 @@
                     <label class="text-[10px] font-bold uppercase tracking-wider text-muted">SKU<input name="sku" value="${secondary[0]}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
                     <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Category<input name="category" value="${secondary[1] || ''}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
                     <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Price<input name="price" type="number" step="0.01" min="0" value="${price}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
-                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Stock<input name="stock" type="number" min="0" value="${stock}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <fieldset class="md:col-span-2"><legend class="text-[10px] font-bold uppercase tracking-wider text-muted">Stock by size</legend><div class="mt-1 grid grid-cols-4 gap-2">${sizes.map((size) => `<label class="text-[10px] font-bold uppercase tracking-wider text-muted">${size}<input name="stock_by_size[${size}]" type="number" min="0" value="${sizeStock[size] ?? 0}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-2 py-2 text-sm text-on-surface"></label>`).join('')}</div></fieldset>
                     <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Status<select name="status" class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"><option ${'{{ $row["status"] ?? "" }}' === 'Active' ? 'selected' : ''}>Active</option><option>Draft</option><option>Scheduled</option><option>Archived</option></select></label>
                     <div class="flex items-end gap-2 md:col-span-6"><button class="bg-primary px-4 py-2 text-xs font-bold uppercase tracking-widest text-white" type="submit">Save quick changes</button><button class="border border-outline-variant/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant" type="button" data-quick-cancel>Cancel</button></div>
                 </form>
