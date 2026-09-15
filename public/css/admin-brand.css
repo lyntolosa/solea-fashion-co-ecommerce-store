@@ -130,6 +130,13 @@
     color: #fff !important;
 }
 
+/* Product-page quick edit actions need a readable label on the clay button. */
+.admin-brand a[href*="/admin/products/"][class*="py-2"] span,
+.admin-brand a[href*="/admin/products/"][class*="py-2"] {
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
 .admin-brand a[href*="/admin/products/"][class*="py-2"]:hover {
     background-color: #8e4433 !important;
     border-color: #8e4433 !important;
