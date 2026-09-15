@@ -32,6 +32,18 @@
 </aside>
 <main class="min-h-screen px-6 pb-16 pt-24 lg:ml-64 lg:px-12">
     <div class="mx-auto max-w-[1400px]">
+        @if(session('inventory_status'))
+            <div class="mb-6 border border-primary/30 bg-primary/10 px-5 py-4 text-sm font-semibold text-primary" role="status">
+                {{ session('inventory_status') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="mb-6 border border-error/30 bg-error/10 px-5 py-4 text-sm font-semibold text-error" role="alert">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
         <header class="mb-8 flex flex-col justify-between gap-5 border-b border-outline-variant/20 pb-8 md:flex-row md:items-end">
             <div><p class="mb-3 text-xs font-bold uppercase tracking-[.25em] text-primary">Soléa / Admin Manager</p><h1 class="flex items-center gap-3 font-headline text-4xl font-extrabold uppercase"><span class="material-symbols-outlined text-primary">{{ $definition['icon'] }}</span>{{ $definition['title'] }}</h1><p class="mt-3 text-sm text-muted">{{ $definition['description'] }}</p></div>
             <a href="{{ route('admin.dashboard') }}" class="border border-outline-variant/30 px-5 py-3 text-xs font-bold uppercase tracking-widest text-on-surface hover:border-primary hover:text-primary">Dashboard Overview</a>
