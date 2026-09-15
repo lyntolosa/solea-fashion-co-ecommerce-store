@@ -58,5 +58,47 @@
         @endif
     </div>
 </main>
+@if($section === 'products')
+<script>
+    document.querySelectorAll('a').forEach((link) => {
+        if (link.textContent.trim() !== 'Quick edit') return;
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const row = link.closest('tr');
+            const existing = row.nextElementSibling;
+            if (existing?.classList.contains('quick-edit-row')) {
+                existing.remove();
+                return;
+            }
+
+            document.querySelectorAll('.quick-edit-row').forEach((item) => item.remove());
+            const cells = row.querySelectorAll('td');
+            const name = row.querySelector('td p.font-bold')?.textContent.trim() || '';
+            const secondary = row.querySelector('td p.text-muted')?.textContent.trim().split(' · ') || ['', ''];
+            const stock = row.querySelector('td:nth-child(2)')?.textContent.match(/\d+/)?.[0] || '0';
+            const price = row.querySelector('td:nth-child(4)')?.textContent.replace(/[^\d.]/g, '') || '0';
+            const action = link.href.replace('/admin/products/', '/admin/inventory/products/').replace(/\/edit$/, '');
+            const quickRow = document.createElement('tr');
+            quickRow.className = 'quick-edit-row';
+            quickRow.innerHTML = `<td colspan="5" class="border-t border-outline-variant/20 bg-surface-container-high px-6 py-5">
+                <form action="${action}" method="POST" class="grid gap-4 md:grid-cols-6">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="PUT">
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted md:col-span-2">Product title<input name="name" value="${name}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">SKU<input name="sku" value="${secondary[0]}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Category<input name="category" value="${secondary[1] || ''}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Price<input name="price" type="number" step="0.01" min="0" value="${price}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Stock<input name="stock" type="number" min="0" value="${stock}" required class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"></label>
+                    <label class="text-[10px] font-bold uppercase tracking-wider text-muted">Status<select name="status" class="mt-1 w-full border border-outline-variant/30 bg-surface px-3 py-2 text-sm text-on-surface"><option ${'{{ $row["status"] ?? "" }}' === 'Active' ? 'selected' : ''}>Active</option><option>Draft</option><option>Scheduled</option><option>Archived</option></select></label>
+                    <div class="flex items-end gap-2 md:col-span-6"><button class="bg-primary px-4 py-2 text-xs font-bold uppercase tracking-widest text-white" type="submit">Save quick changes</button><button class="border border-outline-variant/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant" type="button" data-quick-cancel>Cancel</button></div>
+                </form>
+            </td></tr>`;
+            row.after(quickRow);
+            quickRow.querySelector('[name="status"]').value = row.querySelector('td:last-child')?.textContent.trim() || 'Active';
+            quickRow.querySelector('[data-quick-cancel]').addEventListener('click', () => quickRow.remove());
+        });
+    });
+</script>
+@endif
 </body>
 </html>
