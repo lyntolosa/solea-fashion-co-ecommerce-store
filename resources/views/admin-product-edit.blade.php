@@ -22,7 +22,6 @@
         @endforeach
     </nav>
     <div class="mt-8 border-t border-white/10 pt-5">
-        <a href="{{ route('admin.help') }}" class="flex items-center gap-3 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:text-white"><span class="material-symbols-outlined">help</span>Help &amp; Support</a>
         <a href="{{ route('admin.logout') }}" class="flex items-center gap-3 py-3 text-xs font-bold uppercase tracking-widest text-muted hover:text-red-400"><span class="material-symbols-outlined">logout</span>Exit Admin</a>
     </div>
 </aside>
