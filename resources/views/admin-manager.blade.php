@@ -4,9 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $definition['title'] }} | Soléa Fashion Co.</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="{{ asset('css/admin-brand.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: {
+            colors: { primary: '#A6533E', 'primary-container': '#A6533E', 'on-primary-container': '#FFFFFF', background: '#201A17', surface: '#FFFDFC', 'surface-container-highest': '#EFE5DB', 'on-surface-variant': '#735F56', secondary: '#7799FF' },
+            fontFamily: { headline: ['Plus Jakarta Sans', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+        } } };
+    </script>
 </head>
 <body class="admin-brand min-h-screen bg-background text-white">`r
 @include('partials.demo-notice')
