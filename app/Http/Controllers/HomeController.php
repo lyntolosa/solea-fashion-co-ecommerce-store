@@ -1269,7 +1269,7 @@ class HomeController extends Controller
     {
         $base = collect($this->products())->keyBy('slug');
         return collect($this->inventoryCatalog())
-            ->where('status', 'Active')
+            ->filter(fn (array $product) => ($product['status'] ?? 'Active') !== 'Archived' && (int) ($product['stock'] ?? 0) > 0)
             ->map(function (array $item) use ($base) {
                 $product = $base->has($item['slug']) ? array_merge($base->get($item['slug']), $item) : $item;
                 $product['category'] = match ($product['slug']) {
