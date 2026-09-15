@@ -19,7 +19,11 @@
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
         body { font-family: 'Inter', sans-serif; }
-        .editorial-gradient { background: linear-gradient(to bottom, rgba(14,14,14,.35), rgba(14,14,14,.92)); }
+        .editorial-gradient { background: linear-gradient(to bottom, rgba(36,28,24,.12), rgba(36,28,24,.72)) !important; }
+        .editorial-gradient h1 { color: #fffaf5 !important; text-shadow: 0 2px 16px rgba(36,28,24,.72); }
+        .editorial-gradient p { color: #f4b39e !important; text-shadow: 0 1px 8px rgba(36,28,24,.6); }
+        .editorial-gradient + div.absolute.left-8.top-8 { border-color: rgba(255,250,245,.5) !important; background: rgba(36,28,24,.2); }
+        .editorial-gradient + div.absolute.left-8.top-8 span { color: #fffaf5 !important; }
         .btn-volt-gradient { background: linear-gradient(90deg, #F5FFC4 0%, #D5FB00 100%); }
     </style>
 </head>
@@ -27,7 +31,7 @@
 @include('partials.demo-notice')
     <main class="flex min-h-screen flex-col md:flex-row">
         <section class="relative h-[360px] w-full overflow-hidden md:h-screen md:w-1/2 lg:w-3/5">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqmBIkICqUgdwWrmESCz8QNvzs4jDK72JLsXZ6Qx863AQwthy7LN88m-FZGNzjS1wBBbR46-hgQKxF2IMrnNz3n_YiSREwPG8XfDNAdi8gLj8kkEz1YMClHueucmbcYXbQYAKN_EDJkQDxUPuQpJpW4RJ1seyrqZw7u4OOz6OPoc2jogFqprA2CIMkuA4qn1FwwBntLO4IZc00InG11VGwUqZqBp8YuU3BwPWSZ-J4_NBHp9jW9sS8BOliGY-HsmIrrwIXOmonoyk" alt="High-impact streetwear model" class="absolute inset-0 h-full w-full object-cover grayscale contrast-125">
+            <img src="{{ asset('images/solea-login-editorial.png') }}" alt="Soléa editorial fashion atelier" class="absolute inset-0 h-full w-full object-cover">
             <div class="editorial-gradient absolute inset-0 flex flex-col justify-end p-8 md:p-16 lg:p-24"><div class="space-y-2"><h1 class="font-headline text-5xl font-black italic leading-[.85] tracking-tighter md:text-7xl lg:text-8xl">SOLÉA ACCESS</h1><div class="flex items-center gap-4"><div class="h-[2px] w-12 bg-primary-container"></div><p class="text-sm font-bold tracking-[.3em] text-primary-container md:text-base">THE DIGITAL ATELIER</p></div></div></div>
             <div class="absolute left-8 top-8 border border-white/10 px-4 py-2 backdrop-blur-md"><span class="text-[10px] uppercase tracking-widest text-on-surface-variant">EST. 2024 / AUTHENTICATED</span></div>
         </section>
