@@ -1219,6 +1219,14 @@ class HomeController extends Controller
             'tech-wear-tactical-tee' => '/images/solea-sand-utility-overshirt.png',
             'vintage-wash-renegade-tee' => '/images/solea-plum-satin-skirt.png',
         ];
+        $workingGalleries = [
+            'essential-black-tee' => ['/images/solea-terracotta-wrap-dress-alt.png', '/images/solea-terracotta-wrap-dress-hanging.png'],
+            'studio-white-tee' => ['/images/solea-ivory-linen-blouse-alt.png', '/images/solea-ivory-linen-blouse-hanging.png'],
+            'graphic-logo-tee' => ['/images/solea-cocoa-tailored-blazer-alt.png', '/images/solea-cocoa-tailored-blazer-hanging.png'],
+            'oversized-charcoal-tee' => ['/images/solea-dusty-rose-cardigan-alt.png', '/images/solea-dusty-rose-cardigan-hanging.png'],
+            'tech-wear-tactical-tee' => ['/images/solea-sand-utility-overshirt-alt.png', '/images/solea-sand-utility-overshirt-hanging.png'],
+            'vintage-wash-renegade-tee' => ['/images/solea-plum-satin-skirt-alt.png', '/images/solea-plum-satin-skirt-hanging.png'],
+        ];
         $stock = [120, 12, 0, 88, 45, 8];
         $status = ['Active', 'Active', 'Active', 'Scheduled', 'Draft', 'Active'];
         $defaults = collect($this->products())->values()->map(function (array $product, int $index) use ($stock, $status, $workingImages) {
@@ -1226,7 +1234,8 @@ class HomeController extends Controller
         });
         $removed = $store['removed_inventory'] ?? [];
         $catalog = $defaults->reject(fn (array $item) => in_array($item['slug'], $removed, true))->keyBy('slug')->merge(collect($store['inventory'] ?? [])->keyBy('slug'));
-        return $catalog->map(function (array $item) {
+        return $catalog->map(function (array $item) use ($workingGalleries) {
+            if (empty($item['gallery'])) $item['gallery'] = $workingGalleries[$item['slug']] ?? [];
             $item['stock_by_size'] = $this->normaliseVariationStock($item);
             $item['stock'] = array_sum($item['stock_by_size']);
             $item['variants'] = count($item['stock_by_size']) . ' Sizes';
